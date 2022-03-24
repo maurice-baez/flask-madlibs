@@ -11,15 +11,24 @@ debug = DebugToolbarExtension(app)
 
 @app.get("/questions")
 def get_questions():
-    question = silly_story.prompts
-#all logic to generate the form questions goes here
-    return render_template("questions.html", words=question)
+
+    """ Generating form prompts"""
+
+    prompts = silly_story.prompts
+
+    return render_template("questions.html", words=prompts)
 
 
-@app.post("/questions")
+@app.get("/story")
 def get_form_data():
-    silly_story.generate(answers)
-    return render_template("story.html")
+
+    """ Generate story from form data """
+
+    form_data = request.args
+
+    answers  = silly_story.generate(form_data)
+
+    return render_template("story.html", answers = answers)
 # all logic to get form data goes here
 #return render template story.html
 
